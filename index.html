@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+   <head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="buttons/buttons.css" />
+    </head>
+    <body style="padding: 0px; margin: 0px;">
+       <div id="hjzgg_background" style="width:100%; height:100%; position:absolute;">
+       </div>
+       <div id="assist_background" style="width:100%; height:100%; position:absolute;">
+       </div>
+
+       <div style="width:100%; height:100%; position:absolute;">
+           <iframe id="hjzgg_frame" src="3D_change/index.html" style="display: none; width:100%; height:600px;" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+
+           <div style="float: right; margin-right:10px;">
+           		<a id="btn_pre" href="#" class="button big blue">上一图集</a>
+           		&nbsp;&nbsp;&nbsp;&nbsp;
+           		<a id="btn_next" href="#" class="button big green">下一图集</a>
+           	</div>
+        </div>
+    </body>
+    <script type="text/javascript" src="jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="background.js"></script>
+    <script type="text/javascript">
+
+    	var index = 0;
+    	var totalAtlas = 9;//图集的总数目
+    	var isChanging = false;
+    	$('#hjzgg_frame').fadeIn(2000);
+
+    	function changeFrame(index){
+    		var framePath = "";
+    		switch(index){
+    			case 0:
+    				framePath = "3D_change/index.html";
+    				break;
+    			case 1:
+    				framePath = "sample_change/index.html";
+    				break;
+    			case 2:
+    				framePath = "slide_change/index.html";
+    				break;
+    			case 3:
+    				framePath = "transitions_change/index.html";
+    				break;
+    			case 4:
+    				framePath = "transitions_change/index2.html";
+    				break;
+    			case 5:
+    				framePath = "transitions_change/index3.html";
+    				break;
+    			case 6:
+    				framePath = "transitions_change/index4.html";
+    				break;
+    			case 7:
+    				framePath = "transitions_change/index5.html";
+    				break;
+    			case 8:
+    				framePath = "transitions_change/index6.html";
+    				break;
+    			default:
+    				break;
+    		}
+
+			$('#hjzgg_frame').fadeOut(2000);
+			window.setTimeout(function(){
+				$('#hjzgg_frame').attr("src", framePath);
+   				$('#hjzgg_frame').fadeIn(2000);
+   				window.setTimeout(function(){
+   					isChanging = false;
+   				}, 2000);
+			}, 2000);
+    	}
+
+    	$('#btn_pre').bind('click', function(){
+    		if(isChanging) return false;
+    		isChanging = true;
+    		--index;
+    		if(index < 0) index = totalAtlas-1;
+    		changeFrame(index);
+    		return false;
+    	});
+    	$('#btn_next').bind('click', function(){
+    		if(isChanging) return false;
+    		isChanging = true;
+    		++index;
+    		if(index >= totalAtlas) index = 0;
+    		changeFrame(index);
+    		return false;
+    	});
+    </script>
+</html>
